@@ -25,7 +25,7 @@ if (cluster.isMaster) {
   const app = express();
 
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, '../client/build')));
+  app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
   // Answer API requests.
   app.get('/api', function (req, res) {
@@ -35,7 +35,7 @@ if (cluster.isMaster) {
 
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
   });
 
   // Set up promises with mongoose
@@ -52,7 +52,7 @@ if (cluster.isMaster) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   // Serve up static assets
-  app.use(express.static("client/build"));
+  app.use(express.static("react-ui/build"));
   // Add routes, both API and view
   app.use(routes);
 
